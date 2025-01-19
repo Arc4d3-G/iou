@@ -1,0 +1,120 @@
+<router-outlet />
+<div class="login-container">
+  <p-card class="login-card">
+    <ng-template [ngIf]="isRegistering">
+      <div class="header-container">
+        <h1>
+          Welcome to <span style="color: var(--p-primary-color)">IOU</span>
+        </h1>
+        <p>To get started, register below.</p>
+      </div>
+    </ng-template>
+
+    <ng-template [ngIf]="!isRegistering">
+      <div class="header-container">
+        <h1>
+          Welcome to <span style="color: var(--p-primary-color)">IOU</span>
+        </h1>
+        <p>To get started, login below.</p>
+      </div>
+    </ng-template>
+
+    <!-- <ng-template #subtitle> Card subtitle </ng-template> -->
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" styleClass="login-card">
+      <div class="p-fluid">
+        <div class="p-field">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            type="text"
+            pInputText
+            placeholder="Enter your Email"
+            name="email"
+            required
+            [(ngModel)]="email"
+            #emailModel="ngModel"
+            email
+          />
+          <div *ngIf="emailModel.invalid && emailModel.touched" class="error">
+            <small *ngIf="emailModel.errors?.['required']"
+              >Email is required.</small
+            >
+            <small *ngIf="emailModel.errors?.['email']"
+              >Please enter a valid email address.</small
+            >
+          </div>
+        </div>
+        <div class="p-field">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            pInputText
+            placeholder="Enter your password"
+            name="password"
+            required
+            [(ngModel)]="password"
+            #passwordModel="ngModel"
+            minlength="8"
+          />
+          <div
+            *ngIf="passwordModel.invalid && passwordModel.touched"
+            class="error"
+          >
+            <small *ngIf="passwordModel.errors?.['required']"
+              >Password is required.</small
+            >
+            <small *ngIf="passwordModel.errors?.['minlength']"
+              >Password must be at least 8 characters long.</small
+            >
+          </div>
+        </div>
+        <!-- Only show the confirm password field during registration -->
+        <div *ngIf="isRegistering" class="p-field">
+          <label for="password-confirm">Confirm Password</label>
+          <input
+            id="password-confirm"
+            type="password"
+            pInputText
+            placeholder="Re-Enter your password"
+            name="passwordConfirm"
+            required
+            [(ngModel)]="passwordConfirm"
+            #passwordConfirmModel="ngModel"
+            [pattern]="password"
+          />
+          <div
+            *ngIf="passwordConfirmModel.invalid && passwordConfirmModel.touched"
+            class="error"
+          >
+            <small *ngIf="passwordConfirmModel.errors?.['required']"
+              >Confirm Password is required.</small
+            >
+            <small *ngIf="passwordConfirmModel.errors?.['pattern']"
+              >Passwords do not match.</small
+            >
+          </div>
+        </div>
+        <div class="p-buttons">
+          <p *ngIf="error" class="error-message">{{ error }}</p>
+          <p-button
+            [label]="isRegistering ? 'Register' : 'Login'"
+            type="submit"
+            [disabled]="loginForm.invalid"
+            [style]="{ width: '200px' }"
+          ></p-button>
+          <p class="p-toggle" (click)="toggleMode()">
+            <span *ngIf="!isRegistering">
+              New user?
+              <span style="color: var(--p-primary-color)">Register</span>
+            </span>
+            <span *ngIf="isRegistering">
+              Existing user?
+              <span style="color: var(--p-primary-color)">Login</span>
+            </span>
+          </p>
+        </div>
+      </div>
+    </form>
+  </p-card>
+</div>
