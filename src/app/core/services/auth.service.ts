@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { environment } from '../environments/environment';
+import { environment } from '../../../environments/environment';
 
 export interface UserData {
   email: string;
@@ -44,12 +44,15 @@ export class AuthService {
   }
 
   private handleError(error: any) {
-    let errorMessage = 'An unexpected error occurred';
     console.log({ errorAtHandle: error });
-    if (error.error.error.message) {
+
+    let errorMessage =
+      'Unable to connect to the server. Please try again later.';
+
+    if (error.error?.error?.message) {
       errorMessage = error.error.error.message;
     }
-
+    console.log({ msg: errorMessage });
     console.error('Error:', errorMessage); // For debugging
     return throwError(() => new Error(errorMessage));
   }

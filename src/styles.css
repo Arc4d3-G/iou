@@ -1,6 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-body {
-  margin: 0px;
+@import "primeicons/primeicons.css";
+body,
+html,
+app-root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
   font-family: "Roboto", sans-serif;
   width: 100%;
 }

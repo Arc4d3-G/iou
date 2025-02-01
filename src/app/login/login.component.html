@@ -1,30 +1,47 @@
-<router-outlet />
 <div class="login-container">
   <p-card class="login-card">
-    <ng-template [ngIf]="isRegistering">
+    <ng-template #header>
       <div class="header-container">
-        <h1>
-          Welcome to <span style="color: var(--p-primary-color)">IOU</span>
+        <h1 style="margin-bottom: var(--p-card-body-padding)">
+          Welcome {{ isRegistering ? "" : "back" }} to
+          <span style="color: var(--p-primary-color)">IOU</span>
         </h1>
-        <p>To get started, register below.</p>
+        <p *ngIf="isRegistering">
+          IOU helps you and your friends effortlessly track shared expenses,
+          debts, and repayments. Create groups, add members, log debts, and
+          settle balances—all in one place. Whether it's splitting rent, sharing
+          dinner bills, or managing group expenses, IOU ensures everyone knows
+          who owes what. Sign in now and keep your finances fair and organized!
+        </p>
       </div>
     </ng-template>
+    <!-- <div [@templateChange]="isRegistering ? 'registering' : 'loggingIn'"> -->
+    <!-- <ng-template [ngIf]="isRegistering">
+        <div class="header-container">
+          <h1>
+            Welcome to <span style="color: var(--p-primary-color)">IOU</span>
+          </h1>
+          <p>To get started, register below.</p>
+        </div>
+      </ng-template>
 
-    <ng-template [ngIf]="!isRegistering">
-      <div class="header-container">
-        <h1>
-          Welcome to <span style="color: var(--p-primary-color)">IOU</span>
-        </h1>
-        <p>To get started, login below.</p>
-      </div>
-    </ng-template>
-
+      <ng-template [ngIf]="!isRegistering">
+        <div class="header-container">
+          <h1>
+            Welcome to <span style="color: var(--p-primary-color)">IOU</span>
+          </h1>
+          <p>To get started, login below.</p>
+        </div>
+      </ng-template> -->
+    <!-- </div> -->
     <!-- <ng-template #subtitle> Card subtitle </ng-template> -->
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm" styleClass="login-card">
       <div class="p-fluid">
+        <p>To get started, {{ isRegistering ? "register" : "login" }} below.</p>
         <div class="p-field">
-          <label for="email">Email</label>
+          <!-- <label for="email">Email</label> -->
           <input
+            pSize="large"
             id="email"
             type="text"
             pInputText
@@ -45,8 +62,9 @@
           </div>
         </div>
         <div class="p-field">
-          <label for="password">Password</label>
+          <!-- <label for="password">Password</label> -->
           <input
+            pSize="large"
             id="password"
             type="password"
             pInputText
@@ -71,8 +89,9 @@
         </div>
         <!-- Only show the confirm password field during registration -->
         <div *ngIf="isRegistering" class="p-field">
-          <label for="password-confirm">Confirm Password</label>
+          <!-- <label for="password-confirm">Confirm Password</label> -->
           <input
+            pSize="large"
             id="password-confirm"
             type="password"
             pInputText

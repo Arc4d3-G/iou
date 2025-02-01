@@ -1,16 +1,22 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../core/services/auth.service';
+import { Router } from '@angular/router';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-login',
   imports: [
-    RouterOutlet,
     InputTextModule,
     CardModule,
     FormsModule,
@@ -19,6 +25,16 @@ import { AuthService } from '../auth/auth.service';
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
+  // animations: [
+  //   trigger('templateChange', [
+  //     state('registering', style({ opacity: 1 })),
+  //     state('loggingIn', style({ opacity: 1 })),
+  //     transition('registering <=> loggingIn', [
+  //       style({ height: 0, opacity: 0 }),
+  //       animate('0.5s linear', style({ height: '*', opacity: 1 })),
+  //     ]),
+  //   ]),
+  // ],
 })
 export class LoginComponent {
   isRegistering: boolean = true;
@@ -27,7 +43,7 @@ export class LoginComponent {
   passwordConfirm: string = '';
   error: string | null = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   toggleMode() {
     this.isRegistering = !this.isRegistering;
@@ -46,7 +62,7 @@ export class LoginComponent {
           }
         },
         error: (error) => {
-          this.error = error.message;
+          this.error = error.message || 'An unexpected error occurred';
         },
       });
     } else {
@@ -55,13 +71,15 @@ export class LoginComponent {
           if (response.success && response.data) {
             console.log('Login success:', response.data);
             this.authService.setToken(response.data.token);
+            this.router.navigate(['/dashboard']);
           } else {
             this.error =
               response.error?.message || 'An unexpected error occurred';
           }
         },
         error: (error) => {
-          this.error = error.message; // Display the error message
+          console.log({ errorAtLogin: error });
+          this.error = error.message || 'An unexpected error occurred';
         },
       });
     }
