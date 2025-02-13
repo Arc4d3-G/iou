@@ -25,16 +25,6 @@ import {
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-  // animations: [
-  //   trigger('templateChange', [
-  //     state('registering', style({ opacity: 1 })),
-  //     state('loggingIn', style({ opacity: 1 })),
-  //     transition('registering <=> loggingIn', [
-  //       style({ height: 0, opacity: 0 }),
-  //       animate('0.5s linear', style({ height: '*', opacity: 1 })),
-  //     ]),
-  //   ]),
-  // ],
 })
 export class LoginComponent {
   isRegistering: boolean = true;
@@ -42,11 +32,23 @@ export class LoginComponent {
   password: string = '';
   passwordConfirm: string = '';
   error: string | null = null;
+  isAuthenticated: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {
+    this.isAuthenticated = this.authService.isAuthenticated();
+  }
 
   toggleMode() {
     this.isRegistering = !this.isRegistering;
+  }
+
+  logout() {
+    this.authService.removeToken();
+    this.isAuthenticated = false;
+    this.router.navigate(['/']);
+  }
+  navigateToDashboard() {
+    this.router.navigate(['/dashboard']);
   }
 
   onSubmit() {
@@ -71,6 +73,7 @@ export class LoginComponent {
           if (response.success && response.data) {
             console.log('Login success:', response.data);
             this.authService.setToken(response.data.token);
+            this.authService.setAuthId(response.data.id);
             this.router.navigate(['/dashboard']);
           } else {
             this.error =

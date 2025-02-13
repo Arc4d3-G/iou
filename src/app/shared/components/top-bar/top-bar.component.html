@@ -1,1 +1,24 @@
-<p-menubar [model]="items"> </p-menubar>
+<div class="top-bar">
+  <div class="top-bar-start">
+    <span class="top-bar-logo"
+      ><span
+        style="color: var(--p-primary-color); font-size: 2rem; font-weight: 500"
+        >IOU</span
+      ></span
+    >
+  </div>
+  <div class="top-bar-end">
+    <div class="buttons-container">
+      <p-button icon="pi pi-home" />
+
+      <p-button
+        (click)="toggleTheme()"
+        icon="pi {{ theme === 'dark' ? 'pi-sun' : 'pi-moon' }}"
+      />
+
+      <div *ngIf="user">
+        <p-avatar shape="circle"></p-avatar>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,17 +4,25 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 // import { AuthResolver } from './core/resolvers/auth.resolver';
 import { LoginGuard } from '../app/core/guards/login.guard';
+import { ProfileSetupComponent } from './profile-setup/profile-setup.component';
+import { ProfileGuard } from './core/guards/profile.guard';
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
+  { path: 'login', component: LoginComponent },
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, ProfileGuard],
   },
   {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
-  }, // Default route with AuthGuard
+  },
+  {
+    path: 'profile-setup',
+    component: ProfileSetupComponent,
+    canActivate: [AuthGuard],
+  },
+  // Default route with AuthGuard
   { path: '**', redirectTo: '/login' }, // Fallback route
 ];

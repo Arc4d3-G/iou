@@ -20,7 +20,7 @@ export interface apiResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.authApiUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -59,6 +59,14 @@ export class AuthService {
 
   setToken(token: string): void {
     localStorage.setItem('token', token);
+  }
+
+  setAuthId(authId: string): void {
+    localStorage.setItem('authId', authId);
+  }
+
+  getAuthId(): string | null {
+    return localStorage.getItem('authId');
   }
 
   getToken(): string | null {

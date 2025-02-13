@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { PanelModule } from 'primeng/panel';
 import { DividerModule } from 'primeng/divider';
+import { ButtonModule } from 'primeng/button';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+
 @Component({
   selector: 'app-overview',
-  imports: [DividerModule, PanelModule],
+  imports: [ScrollPanelModule, DividerModule, PanelModule, ButtonModule],
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.css',
 })
 export class OverviewComponent {
-  public totalOwed = '0.00';
-  public totalCredit = '0.00';
-  public recentActivity = [];
+  totalOwed = '0.00';
+  totalCredit = '0.00';
 }

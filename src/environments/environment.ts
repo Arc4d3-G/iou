@@ -1,4 +1,5 @@
 export const environment = {
-  production: true,
-  apiUrl: 'http://localhost:3000/', // Example API URL for production
+  production: false,
+  authApiUrl: 'http://localhost:3000/',
+  iouApiUrl: 'http://localhost:8080/iou',
 };

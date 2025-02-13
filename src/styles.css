@@ -18,3 +18,7 @@ app-root {
 p {
   margin: 0px;
 }
+
+.light {
+  background-color: var(--p-surface-50);
+}

@@ -1,30 +1,35 @@
 <div class="overview-container">
-  <p-panel header="Overview">
-    <p-panel header="Totals">
-      <div class="totals-container panel-content">
-        <div class="totals-numbers">
-          <div>
-            <p>Total Owed</p>
-            <p class="total-p">{{ totalOwed }}</p>
-          </div>
-          <div>
-            <p>Owed to You</p>
-            <p class="total-p">{{ totalCredit }}</p>
-          </div>
-        </div>
-        <div class="totals-graph">
-          <div class="graph-container">
-            <p>this is a pie chart?</p>
-          </div>
-        </div>
+  <div class="overview-card">
+    <div class="card-top">
+      <div>
+        <p class="card-header">Total Owed</p>
+        <p class="total-amount">{{ totalOwed }}</p>
       </div>
-    </p-panel>
-    <p-panel header="Recent Activity">
-      <div class="activity-container panel-content">
-        <p>1</p>
-        <p>1</p>
-        <p>1</p>
+      <div>
+        <p-button>Make a Payment</p-button>
       </div>
-    </p-panel>
-  </p-panel>
+    </div>
+    <div class="card-bottom">
+      <p-panel header="Breakdown" [toggleable]="true" collapsed="true">
+        <p-scroll-panel> </p-scroll-panel>
+      </p-panel>
+    </div>
+  </div>
+
+  <div class="overview-card">
+    <div class="card-top">
+      <div>
+        <p class="card-header">Owed To You</p>
+        <p class="total-amount">{{ totalCredit }}</p>
+      </div>
+      <div>
+        <p-button>Request Payment</p-button>
+      </div>
+    </div>
+    <div class="card-bottom">
+      <p-panel header="Breakdown" [toggleable]="true" collapsed="true">
+        <p-scroll-panel> </p-scroll-panel>
+      </p-panel>
+    </div>
+  </div>
 </div>

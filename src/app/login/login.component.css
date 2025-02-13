@@ -27,6 +27,18 @@
   gap: 1rem;
 }
 
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.p-fluid-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
 .p-field {
   display: flex;
   flex-direction: column;

@@ -1,2 +1,26 @@
-.p-menubar {
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  height: 4rem;
+  background-color: var(--p-content-background);
+  position: fixed;
+  z-index: 997;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.top-bar-start {
+}
+
+.top-bar-end {
+}
+
+.buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  gap: 1rem;
 }
